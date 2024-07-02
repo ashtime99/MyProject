@@ -1,21 +1,186 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <groupId>com.ashtime99</groupId>
-  <artifactId>blueberry</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
 
-  <name>blueberry</name>
+    <groupId>com.ashtime99</groupId>
+    <artifactId>blueberry</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>blueberry</name>
 
-  <modules>
-    <module>blueberry-web</module>
-    <module>blueberry-common</module>
-  </modules>
+    <modules>
+        <module>blueberry-adapter</module>
+        <module>blueberry-domain</module>
+        <module>blueberry-client</module>
+        <module>blueberry-app</module>
+        <module>blueberry-infrastructure</module>
+        <module>blueberry-start</module>
+    </modules>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <cola.components.version>5.0.0</cola.components.version>
+        <spring-boot.version>2.7.2</spring-boot.version>
+        <mybatis-starter.version>2.2.2</mybatis-starter.version>
+        <mybatis-plus.version>3.5.7</mybatis-plus.version>
+        <mapstruct.version>1.5.2.Final</mapstruct.version>
+        <mapstruct-binding.version>0.2.0</mapstruct-binding.version>
+        <projectlombok.version>1.18.20</projectlombok.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <!-- mapStruct-lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-mapstruct-binding</artifactId>
+            <version>${mapstruct-binding.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.projectlombok</groupId>-->
+        <!--            <artifactId>lombok</artifactId>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
+        <!-- lombok 依赖-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${projectlombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--Project modules-->
+            <dependency>
+                <groupId>com.ashtime99</groupId>
+                <artifactId>blueberry-adapter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ashtime99</groupId>
+                <artifactId>blueberry-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ashtime99</groupId>
+                <artifactId>blueberry-app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ashtime99</groupId>
+                <artifactId>blueberry-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ashtime99</groupId>
+                <artifactId>blueberry-infrastructure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--Project modules End-->
+            <dependency>
+                <groupId>com.alibaba.cola</groupId>
+                <artifactId>cola-components-bom</artifactId>
+                <version>${cola.components.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--            <dependency>-->
+            <!--                <groupId>org.mybatis.spring.boot</groupId>-->
+            <!--                <artifactId>mybatis-spring-boot-starter</artifactId>-->
+            <!--                <version>${mybatis-starter.version}</version>-->
+            <!--            </dependency>-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!--Validation API-->
+            <!--
+                - javax.validation:javax.validation
+                - org.hibernate.validator:hibernate-validator
+                - org.glassfish:jakarta.el
+                are declared in spring-boot-dependencies
+            -->
+            <dependency>
+                <groupId>javax.el</groupId>
+                <artifactId>javax.el-api</artifactId>
+                <version>3.0.0</version>
+            </dependency>
+            <!--Validation API End -->
+
+            <!-- Misc -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.83</version>
+            </dependency>
+            <!-- Misc End -->
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <encoding>UTF-8</encoding><!-- 字符集编码 -->
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.mapstruct</groupId>
+                                <artifactId>mapstruct-processor</artifactId>
+                                <version>${mapstruct.version}</version>
+                            </path>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${projectlombok.version}</version>
+                            </path>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok-mapstruct-binding</artifactId>
+                                <version>${mapstruct-binding.version}</version>
+                            </path>
+                            <!-- other annotation processors -->
+                        </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>
